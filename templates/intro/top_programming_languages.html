@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %} Top Programming Languages {% endblock %}
+
+{% block content %}
+    <table border="1">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for language in languages %}
+            <tr>
+                <td>{{ language.title }}</td>
+                <td>{{ language.description }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href='{% url 'innovo' %}'>Go to list of it innono </a>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

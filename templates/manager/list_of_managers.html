@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block title %} Meet Our Managers {% endblock %}
+{% block content %}
+<div class="container py-4">
+    <div class="row mb-4">
+        <div class="col">
+            <h2 class="display-5 fw-bold">Management Team</h2>
+            <p class="text-secondary">Overview of current department leads and contact information.</p>
+        </div>
+    </div>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        {% for manager in all_managers %}
+            <div class="col">
+                <div class="card h-100 shadow-sm border-secondary hover-shadow">
+                    <div class="card-header bg-transparent border-secondary py-3">
+                        <h5 class="card-title mb-0 text-info">{{ manager }}</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <small class="text-uppercase text-secondary fw-bold">Department</small>
+                            <p class="fs-5 mb-0">{{ manager.department.upper }}</p>
+                        </div>
+
+                        <p class="card-text text-body-secondary">
+                            <i class="bi bi-envelope-at me-2"></i>{{ manager.email }}<br>
+                            <i class="bi bi-calendar3 me-2"></i>Joined: {{ manager.hire_date|date:"F Y" }}
+                        </p>
+                    </div>
+                    <div class="card-footer bg-transparent border-secondary d-flex justify-content-between">
+                        <a href="#" class="btn btn-sm btn-outline-info">View Profile</a>
+                        <a href="mailto:{{ manager.email }}" class="btn btn-sm btn-outline-light">Contact</a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-12 text-center py-5">
+                <p class="text-muted">No managers found in the system.</p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+<style>
+    /* Adds a smooth lift effect on hover */
+    .hover-shadow {
+        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    }
+    .hover-shadow:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.4) !important;
+        border-color: var(--bs-info) !important;
+    }
+</style>
+{% endblock %}

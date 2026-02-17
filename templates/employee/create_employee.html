@@ -1,0 +1,110 @@
+{% extends 'base.html' %}
+
+{% block title %} Create New Employee {% endblock %}
+
+{% block content %}
+<div class="row g-5">
+    <div class="col-lg-5">
+        <div class="d-flex align-items-center mb-4">
+            <div class="bg-primary bg-opacity-10 p-3 rounded-3 me-3">
+                <i class="bi bi-person-plus-fill text-primary fs-3"></i>
+            </div>
+            <div>
+                <h2 class="h4 mb-0 fw-bold">Add Employee</h2>
+                <small class="text-secondary">System Time: {{ current_datetime|date:"d-m-Y H:i:s" }}</small>
+            </div>
+        </div>
+
+        <form method="POST" class="needs-validation">
+            {% csrf_token %}
+            <div class="mb-4 form-custom-style">
+                {{ form }}
+            </div>
+
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary btn-lg rounded-pill shadow-sm">
+                    <i class="bi bi-check-circle me-2"></i>Register Employee
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-lg-7">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="h4 mb-0 fw-bold">Recently Active</h2>
+            <a href="{% url 'list-employees' %}" class="btn btn-sm btn-outline-secondary rounded-pill">View All</a>
+        </div>
+
+        <div class="table-responsive rounded-3 border border-white border-opacity-10">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th class="ps-4 border-0 text-uppercase small tracking-wider">Employee Name</th>
+                        <th class="text-end pe-4 border-0 text-uppercase small tracking-wider">Status</th>
+                    </tr>
+                </thead>
+                <tbody class="border-top-0">
+                    {% for employee in active_employees %}
+                        <tr>
+                            <td class="ps-4 py-3">
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar-sm me-3 bg-secondary bg-opacity-25 rounded-circle d-flex align-items-center justify-content-center text-light">
+                                        {{ employee.first_name|first }}{{ employee.last_name|first }}
+                                    </div>
+                                    <span class="fw-semibold">{{ employee.first_name }} {{ employee.last_name }}</span>
+                                </div>
+                            </td>
+                            <td class="text-end pe-4">
+                                <span class="badge rounded-pill bg-success bg-opacity-10 text-success border border-success border-opacity-25">Active</span>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="2" class="text-center py-5 text-muted small italic">No active employees found.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Styling for Django's {{ form }} output to match Bootstrap */
+    .form-custom-style input,
+    .form-custom-style select,
+    .form-custom-style textarea {
+        display: block;
+        width: 100%;
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #fff;
+        background-color: rgba(255, 255, 255, 0.05);
+        background-clip: padding-box;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 0.5rem;
+        transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+        margin-bottom: 1rem;
+    }
+
+    .form-custom-style input:focus {
+        background-color: rgba(255, 255, 255, 0.08);
+        border-color: var(--bs-primary);
+        outline: 0;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
+
+    .avatar-sm {
+        width: 32px;
+        height: 32px;
+        font-size: 0.8rem;
+        font-weight: bold;
+    }
+
+    .tracking-wider {
+        letter-spacing: 0.05em;
+    }
+</style>
+{% endblock %}

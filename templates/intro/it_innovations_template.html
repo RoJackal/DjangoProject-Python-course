@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+
+{% block title %} IT INNOVATIONS {% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+
+        <h1>3 COLOANE</h1>
+        <div class="row">
+            <div class="col-md-4">
+                <table class="table table-success table-striped">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Impact</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for innovo in innovations %}
+                        <tr>
+                            <td>{{ innovo.name }}</td>
+                            <td>{{ innovo.impact }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+
+                </table>
+            </div>
+            <div class="col-md-4">
+                <table class="table table-success table-striped">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Impact</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for innovo in innovations %}
+                        <tr>
+                            <td>{{ innovo.name }}</td>
+                            <td>{{ innovo.impact }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+
+                </table>
+            </div>
+            <div class="col-md-4">
+                <table class="table table-success table-striped">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Impact</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for innovo in innovations %}
+                        <tr>
+                            <td>{{ innovo.name }}</td>
+                            <td>{{ innovo.impact }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+
+
+        <h1>Coloana pe mijloc</h1>
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <table class="table table-success table-striped">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Impact</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for innovo in innovations %}
+                        <tr>
+                            <td>{{ innovo.name }}</td>
+                            <td>{{ innovo.impact }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+
+
+        <h1>Full page</h1>
+
+        <table class="table table-success table-striped">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Impact</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for innovo in innovations %}
+                <tr>
+                    <td>{{ innovo.name }}</td>
+                    <td>{{ innovo.impact }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+
+        </table>
+
+        <a class="btn btn-outline-primary" href='{% url 'top-programming-languages' %}'>Go to list of progr langs</a>
+
+    </div>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+

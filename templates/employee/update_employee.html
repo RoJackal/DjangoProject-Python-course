@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% block title %} Update Profile - {{ employee.first_name }} {% endblock %}
+{% block content %}
+<div class="row g-4">
+    <div class="col-12 border-bottom border-white border-opacity-10 pb-3 mb-2">
+        <div class="d-flex align-items-center">
+            <div class="avatar-lg me-3 d-flex align-items-center justify-content-center fw-bold">
+                {{ employee.first_name|first }}{{ employee.last_name|first }}
+            </div>
+            <div>
+                <h2 class="h3 mb-0 fw-bold text-white">Update Profile</h2>
+                <p class="text-secondary mb-0">Modifying records for <strong>{{ employee.first_name }} {{ employee.last_name }}</strong></p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="ems-panel p-4 h-100 shadow-sm">
+            <h5 class="small text-uppercase text-primary fw-bold tracking-wider mb-4">Current Record</h5>
+            <div class="mb-3">
+                <label class="text-secondary small d-block">Full Name</label>
+                <span class="fw-medium text-light">{{ employee.first_name }} {{ employee.last_name }}</span>
+            </div>
+            <div class="mb-3">
+                <label class="text-secondary small d-block">Gender</label>
+                <span class="badge bg-secondary bg-opacity-25 text-light border border-secondary">{{ employee.gender|title }}</span>
+            </div>
+            <div class="mb-3">
+                <label class="text-secondary small d-block">Salary (Current)</label>
+                <span class="text-success fw-bold">{{ employee.salary }}</span>
+            </div>
+            <div class="mb-0">
+                <label class="text-secondary small d-block">Hire Date</label>
+                <span class="text-light"><i class="bi bi-calendar-check me-1 text-secondary"></i> {{ employee.hire_date|date:"d F Y" }}</span>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8">
+        <form method="post" class="form-custom-style">
+            {% csrf_token %}
+            <div class="ems-panel p-4 border-0">
+                <h5 class="small text-uppercase text-primary fw-bold tracking-wider mb-4">Edit Details</h5>
+                {{ form }}
+                <div class="d-flex gap-2 mt-4 pt-3 border-top border-white border-opacity-10">
+                    <button type="submit" class="btn btn-primary px-4 rounded-pill shadow">
+                        <i class="bi bi-save me-2"></i>Apply Changes
+                    </button>
+                    <a href="{% url 'list-employees' %}" class="btn btn-outline-secondary px-4 rounded-pill text-light">
+                        Cancel
+                    </a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<style>
+    .ems-panel {
+        background-color: #1a1d21 !important;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 1rem;
+    }
+    .avatar-lg {
+        width: 64px;
+        height: 64px;
+        font-size: 1.5rem;
+        background: rgba(13, 110, 253, 0.1);
+        color: #0d6efd;
+        border: 2px solid rgba(13, 110, 253, 0.2);
+        border-radius: 50%;
+    }
+    /* Fixed Form Styling */
+    .form-custom-style input,
+    .form-custom-style select,
+    .form-custom-style textarea {
+        display: block;
+        width: 100%;
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+        color: #ffffff !important;
+        background-color: #2b3035 !important; /* Solid dark background */
+        border: 1px solid #495057;
+        border-radius: 0.5rem;
+        margin-bottom: 1.25rem;
+    }
+    /* Fix for the invisible Select options */
+    .form-custom-style select option {
+        background-color: #2b3035;
+        color: #ffffff;
+    }
+    .form-custom-style input:focus,
+    .form-custom-style select:focus {
+        background-color: #32383e !important;
+        border-color: #0d6efd;
+        outline: none;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
+    .tracking-wider { letter-spacing: 0.1em; }
+</style>
+{% endblock %}
