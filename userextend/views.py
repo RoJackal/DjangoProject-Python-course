@@ -1,47 +1,74 @@
 import datetime
-from django.contrib.auth.forms import UserCreationForm
+import logging
+
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
-from django.shortcuts import render
 from django.views.generic import CreateView
+from django.contrib import messages
+from django.urls import reverse_lazy
 
 from DjangoProject.settings import DEFAULT_FROM_EMAIL
 from userextend.forms import SignUpForm
 from userextend.models import Logs
-
-
+logger = logging.getLogger(__name__)
 class UserCreateView(CreateView):
-    template_name = 'userextend/create_user.html'
-    model = User
-    form_class = SignUpForm
-    success_url = '/login/'
-
-
-    def form_valid(self, form):
-        if form.is_valid():
-
-            # 1. Modificare date inainte de salvare
-            # new_user = form.save() # Datele din formular sunt salvate in tabela respectiva
-            new_user = form.save(commit=False) # Opresc ca datele sa fie salvate in db
-
-            new_user.first_name = new_user.first_name.title()
-            new_user.last_name = new_user.last_name.title()
-
-            new_user.save()
-
-            # 2. Adaugare log in tabela userextend_logs
-            text = f"{new_user.first_name} {new_user.last_name} a fost adaugat cu success"
-            Logs.objects.create(text=text, created=datetime.datetime.now())
-
-            # 3. Trimitere mail
-            title = 'Welcome new user'
-            content = f"Hello {new_user.first_name} {new_user.last_name}! \n\n Your account has been created successfully! \n\n Please login to continue."
-
-            send_mail(
-                subject= title,
-                message=content,
-                from_email = DEFAULT_FROM_EMAIL,
-                recipient_list = [new_user.email]
-            )
-
-        return super(UserCreateView, self).form_valid(form)
+	"""Create new user with email notification"""
+	template_name = 'userextend/create_user.html'
+	model = User
+	form_class = SignUpForm
+	success_url = reverse_lazy('login')
+	def form_valid( self, form ):
+		"""Process form and send welcome email"""
+		if form.is_valid():
+			try:
+				# 1. Modify data before saving
+				new_user = form.save(commit=False)
+				new_user.first_name = new_user.first_name.title()
+				new_user.last_name = new_user.last_name.title()
+				new_user.save()
+				
+				# 2. Add log entry
+				log_text = f"{new_user.first_name} {new_user.last_name} was successfully registered"
+				Logs.objects.create(text=log_text, created=datetime.datetime.now())
+				logger.info(log_text)
+				
+				# 3. Send welcome email
+				try:
+					title = 'Welcome to DjangoProject'
+					content = (
+						f"Hello {new_user.first_name} {new_user.last_name}!\n\n"
+						f"Your account has been created successfully!\n\n"
+						f"Username: {new_user.username}\n"
+						f"Email: {new_user.email}\n\n"
+						f"Please login to continue."
+					)
+					
+					send_mail(
+							subject=title,
+							message=content,
+							from_email=DEFAULT_FROM_EMAIL,
+							recipient_list=[new_user.email],
+							fail_silently=False,
+							)
+					logger.info(f'Welcome email sent to {new_user.email}')
+				
+				except Exception as e:
+					# Log email error but don't fail user creation
+					logger.error(f'Failed to send welcome email to {new_user.email}: {str(e)}')
+					messages.warning(
+							self.request,
+							'Account created but welcome email could not be sent.'
+							)
+				
+				messages.success(self.request, 'Account created successfully! Please login.')
+			
+			except Exception as e:
+				logger.error(f'Error creating user: {str(e)}')
+				messages.error(self.request, 'An error occurred during registration.')
+				raise
+		
+		return super().form_valid(form)
+	def form_invalid( self, form ):
+		"""Handle invalid form submission"""
+		messages.error(self.request, 'Please correct the errors below.')
+		return super().form_invalid(form)
