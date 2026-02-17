@@ -2,7 +2,6 @@ import datetime
 
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.views.generic import CreateView, DeleteView, DetailView, ListView, UpdateView
-
 from employee.forms import EmployeeForm, EmployeeUpdateForm
 from employee.models import Employee
 # CreateView - o clasa generica implementata de Django folosit pentru a salva datele dintr-un formular in baza de date
@@ -16,13 +15,10 @@ class EmployeeCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView
 	permission_required = 'employee.add_employee'
 	def get_context_data( self, **kwargs ):
 		context = super().get_context_data(**kwargs)
-		
 		now = datetime.datetime.now()
 		context['current_datetime'] = now
-		
 		active_employees = Employee.objects.filter(active=True)
 		context['active_employees'] = active_employees
-		
 		return context
 # ListView - o clasa generica implementata de Django folosita pentru a afisa datele dintr-un model/dintr-o baza de date
 class EmployeeListView(LoginRequiredMixin, ListView):

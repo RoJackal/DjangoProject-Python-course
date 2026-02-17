@@ -20,14 +20,13 @@
                             <small class="text-uppercase text-secondary fw-bold">Department</small>
                             <p class="fs-5 mb-0">{{ manager.department.upper }}</p>
                         </div>
-
                         <p class="card-text text-body-secondary">
                             <i class="bi bi-envelope-at me-2"></i>{{ manager.email }}<br>
                             <i class="bi bi-calendar3 me-2"></i>Joined: {{ manager.hire_date|date:"F Y" }}
                         </p>
                     </div>
                     <div class="card-footer bg-transparent border-secondary d-flex justify-content-between">
-                        <a href="#" class="btn btn-sm btn-outline-info">View Profile</a>
+                        <a href="{% url 'view_profile' manager.id %}" class="btn btn-sm btn-outline-info">View Profile</a>
                         <a href="mailto:{{ manager.email }}" class="btn btn-sm btn-outline-light">Contact</a>
                     </div>
                 </div>
@@ -40,7 +39,6 @@
     </div>
 </div>
 <style>
-    /* Adds a smooth lift effect on hover */
     .hover-shadow {
         transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
     }
