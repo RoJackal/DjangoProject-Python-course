@@ -1,4 +1,41 @@
 {% extends 'base.html' %}
-{% block title %} Home {% endblock %}
+{% load static %}
+{% block title %}Home{% endblock %}
+
 {% block content %}
+<div class="container mt-5">
+    <div class="jumbotron text-center bg-primary text-white p-5 rounded">
+        <h1 class="display-4">Bine ai venit la Django!</h1>
+        <p class="lead">Un framework web puternic și flexibil pentru dezvoltatori.</p>
+        <hr class="my-4">
+        <p>Construiește aplicații scalabile și sigure cu Django.</p>
+        <a class="btn btn-light btn-lg" href="https://www.djangoproject.com/" role="button">Află mai multe</a>
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Rapid și Eficient</h5>
+                    <p class="card-text">Django îți permite să construiești aplicații rapid, fără a compromite securitatea.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Scalabil</h5>
+                    <p class="card-text">Django este folosit de companii mari datorită capacității sale de scalabilitate.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Securitate Avansată</h5>
+                    <p class="card-text">Django are mecanisme integrate pentru protecția împotriva atacurilor web.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

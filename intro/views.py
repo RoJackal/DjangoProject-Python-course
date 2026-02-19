@@ -1,17 +1,16 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render
 
 # Create your views here.
 
-
+@login_required
 def welcome_message(request):
     return HttpResponse("<h1>Hello world</h1>")
-
-
+@login_required()
 def welcome_back(request):
     return HttpResponse("<h1>Welcome back</h1>")
-
-
+@login_required()
 def it_innovations(request):
     context = {
         'innovations':[
@@ -29,10 +28,8 @@ def it_innovations(request):
              }
         ]
     }
-
     return render(request, 'intro/it_innovations_template.html', context)
-
-
+@login_required()
 def top_programming_languages(request):
     context = {
         'languages': [

@@ -3,12 +3,9 @@
         <a class="navbar-brand fw-bold text-uppercase tracking-wider" href="#">
             <span class="text-primary"><i class="bi bi-cpu-fill"></i></span> EMS<span class="text-primary">.</span>
         </a>
-
-        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
@@ -16,55 +13,47 @@
                         <i class="bi bi-house-door me-1"></i> Dashboard
                     </a>
                 </li>
-
                 {% if user.is_authenticated %}
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle nav-hover-effect" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-people me-1"></i> Employees
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-dark shadow-lg border-secondary">
+                        <ul class="dropdown-menu dropdown-menu-dark shadow-lg border-secondary border-opacity-50">
                             {% if perms.employee.add_employee %}
-                                 <li><a class="dropdown-item" href="{% url 'create-employee' %}"><i class="bi bi-plus-circle me-2"></i>Add New</a></li>
+                                 <li><a class="dropdown-item" href="{% url 'create_employee' %}"><i class="bi bi-plus-circle me-2"></i>Add New</a></li>
                             {% endif %}
-                            <li><a class="dropdown-item" href="{% url 'list-employees' %}"><i class="bi bi-list-ul me-2"></i>Directory</a></li>
+                            <li><a class="dropdown-item" href="{% url 'list_employees' %}"><i class="bi bi-list-ul me-2"></i>Directory</a></li>
                         </ul>
                     </li>
-
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle nav-hover-effect" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-shield-lock me-1"></i> Management
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-dark shadow-lg border-secondary">
+                        <ul class="dropdown-menu dropdown-menu-dark shadow-lg border-secondary border-opacity-50">
                             <li><a class="dropdown-item" href="{% url 'create_manager' %}"><i class="bi bi-person-plus me-2"></i>New Manager</a></li>
                             <li><a class="dropdown-item" href="{% url 'list_managers' %}"><i class="bi bi-person-badge me-2"></i>Manager List</a></li>
                         </ul>
                     </li>
-
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle nav-hover-effect" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Quick View
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-dark shadow-lg border-secondary scrollable-menu">
+                        <a class="nav-link dropdown-toggle nav-hover-effect" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Quick View</a>
+                        <ul class="dropdown-menu dropdown-menu-dark shadow-lg border-secondary border-opacity-50 scrollable-menu">
                             {% for employee in employees %}
-                                <li><a class="dropdown-item small" href="{% url 'details-employee' employee.id %}">
-                                    {{ employee.first_name }} {{ employee.last_name }}
-                                </a></li>
+                                <li><a class="dropdown-item small" href="{% url 'details_employee' employee.id %}">{{ employee.first_name }} {{ employee.last_name }}</a></li>
                             {% empty %}
                                 <li><span class="dropdown-item-text text-muted small">No entries</span></li>
                             {% endfor %}
                             {% if no_of_max %}
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item fw-bold text-info" href="{% url 'list-employees' %}">Full Directory</a></li>
+                                <li><a class="dropdown-item fw-bold text-info" href="{% url 'list_employees' %}">Full Directory</a></li>
                             {% endif %}
                         </ul>
                     </li>
                 {% endif %}
             </ul>
-
             <div class="d-flex align-items-center gap-3">
                 {% if user.is_authenticated %}
                     <div class="d-none d-lg-block text-end">
-                        <div class="text-light small lh-1">Welcome back,</div>
+                        <div class="text-light small lh-1" style="font-size: 0.75rem;">Welcome back,</div>
                         <div class="text-primary fw-bold small">{{ user.username }}</div>
                     </div>
                     <form method="post" action="{% url 'logout' %}" class="m-0">
@@ -81,16 +70,12 @@
         </div>
     </div>
 </nav>
-
 <style>
-    /* Glassmorphism Effect */
     .navbar-glass {
-        background: rgba(15, 18, 22, 0.8) !important;
+        background: rgba(15, 18, 22, 0.85) !important;
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
     }
-
-    /* Animated Underline for Links */
     .nav-hover-effect {
         position: relative;
         transition: color 0.3s ease;
@@ -109,13 +94,17 @@
     .nav-hover-effect:hover::after {
         width: 80%;
     }
-
-    /* Scrollbar for long Quick View lists */
     .scrollable-menu {
         max-height: 300px;
         overflow-y: auto;
     }
-
+    .scrollable-menu::-webkit-scrollbar {
+        width: 4px;
+    }
+    .scrollable-menu::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 10px;
+    }
     .tracking-wider {
         letter-spacing: 1px;
     }

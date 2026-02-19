@@ -27,5 +27,4 @@ def get_all_employees( request ):
 	
 	# Cache for 5 minutes
 	cache.set(cache_key, data, 300)
-	
 	return data

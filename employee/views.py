@@ -15,7 +15,7 @@ class EmployeeCreateView(LoginRequiredMixin, PermissionRequiredMixin, CreateView
 	template_name = 'employee/create_employee.html'
 	model = Employee
 	form_class = EmployeeForm
-	success_url = reverse_lazy('list-employees')  # FIXED: Changed from 'list_employees'
+	success_url = reverse_lazy('list_employees')  # FIXED: Changed from 'list_employees'
 	permission_required = 'employee.add_employee'
 	def get_context_data( self, **kwargs ):
 		context = super().get_context_data(**kwargs)
@@ -67,7 +67,7 @@ class EmployeeUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView
 	template_name = 'employee/update_employee.html'
 	model = Employee
 	form_class = EmployeeUpdateForm
-	success_url = reverse_lazy('list-employees')  # FIXED: Changed from 'list_employees'
+	success_url = reverse_lazy('list_employees')  # FIXED: Changed from 'list_employees'
 	permission_required = 'employee.change_employee'
 	def form_valid( self, form ):
 		messages.success(self.request, f'Employee {form.instance.full_name} updated successfully!')
@@ -80,7 +80,7 @@ class EmployeeDeleteView(LoginRequiredMixin, PermissionRequiredMixin, DeleteView
 	"""Soft delete employee by setting active=False"""
 	template_name = 'employee/delete_employee.html'
 	model = Employee
-	success_url = reverse_lazy('list-employees')  # FIXED: Changed from 'list_employees'
+	success_url = reverse_lazy('list_employees')  # FIXED: Changed from 'list_employees'
 	permission_required = 'employee.delete_employee'
 	def delete( self, request, *args, **kwargs ):
 		"""Soft delete instead of hard delete"""
@@ -104,9 +104,7 @@ class EmployeeDetailView(LoginRequiredMixin, DetailView):
 		return Employee.objects.select_related('manager')
 	def get_context_data( self, **kwargs ):
 		context = super().get_context_data(**kwargs)
-		
 		# Add additional context
 		employee = self.object
 		context['years_employed'] = (datetime.date.today() - employee.hire_date).days // 365
-		
 		return context

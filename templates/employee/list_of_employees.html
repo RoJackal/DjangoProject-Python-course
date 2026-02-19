@@ -1,7 +1,5 @@
 {% extends 'base.html' %}
-
 {% block title %} Employee Directory {% endblock %}
-
 {% block content %}
 <div class="d-flex justify-content-between align-items-center mb-4">
     <div>
@@ -9,7 +7,7 @@
         <p class="text-secondary small mb-0">Manage and view all registered staff members.</p>
     </div>
     <div class="d-flex gap-2">
-        <a href="{% url 'create-employee' %}" class="btn btn-primary rounded-pill px-3 shadow-sm">
+        <a href="{% url 'create_employee' %}" class="btn btn-primary rounded-pill px-3 shadow-sm">
             <i class="bi bi-person-plus-fill me-1"></i> Add New
         </a>
     </div>
@@ -66,10 +64,10 @@
                                 <i class="bi bi-three-dots-vertical"></i>
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end shadow-lg border-secondary">
-                                <li><a class="dropdown-item" href="{% url 'details-employee' employee.id %}"><i class="bi bi-eye me-2"></i> View Profile</a></li>
-                                <li><a class="dropdown-item" href="{% url 'update-employee' employee.id %}"><i class="bi bi-pencil me-2"></i> Edit Details</a></li>
+                                <li><a class="dropdown-item" href="{% url 'details_employee' employee.id %}"><i class="bi bi-eye me-2"></i> View Profile</a></li>
+                                <li><a class="dropdown-item" href="{% url 'update_employee' employee.id %}"><i class="bi bi-pencil me-2"></i> Edit Details</a></li>
                                 <li><hr class="dropdown-divider border-secondary"></li>
-                                <li><a class="dropdown-item text-danger" href="{% url 'delete-employee' employee.id %}"><i class="bi bi-trash me-2"></i> Terminate</a></li>
+                                <li><a class="dropdown-item text-danger" href="{% url 'delete_employee' employee.id %}"><i class="bi bi-trash me-2"></i> Terminate</a></li>
                             </ul>
                         </div>
                     </td>

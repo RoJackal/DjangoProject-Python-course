@@ -6,7 +6,6 @@ from django.contrib.auth import views as auth_views
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-
 from userextend.forms import LoginForm
 urlpatterns = [
 	# Admin
@@ -25,7 +24,6 @@ urlpatterns = [
 	path('', include('intro.urls')),  # CHANGED back to empty
 	path('', include('home.urls')),  # Home MUST BE LAST
 	]
-
 # Serve media files in development
 if settings.DEBUG:
 	urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

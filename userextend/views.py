@@ -1,17 +1,18 @@
 import datetime
 import logging
 
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.views.generic import CreateView
 from django.contrib import messages
 from django.urls import reverse_lazy
-
 from DjangoProject.settings import DEFAULT_FROM_EMAIL
+from django.contrib.auth.forms import UserCreationForm
 from userextend.forms import SignUpForm
 from userextend.models import Logs
 logger = logging.getLogger(__name__)
-class UserCreateView(CreateView):
+class UserCreateView(LoginRequiredMixin, CreateView):
 	"""Create new user with email notification"""
 	template_name = 'userextend/create_user.html'
 	model = User
@@ -51,7 +52,6 @@ class UserCreateView(CreateView):
 							fail_silently=False,
 							)
 					logger.info(f'Welcome email sent to {new_user.email}')
-				
 				except Exception as e:
 					# Log email error but don't fail user creation
 					logger.error(f'Failed to send welcome email to {new_user.email}: {str(e)}')
@@ -59,16 +59,17 @@ class UserCreateView(CreateView):
 							self.request,
 							'Account created but welcome email could not be sent.'
 							)
-				
 				messages.success(self.request, 'Account created successfully! Please login.')
-			
 			except Exception as e:
 				logger.error(f'Error creating user: {str(e)}')
 				messages.error(self.request, 'An error occurred during registration.')
 				raise
-		
 		return super().form_valid(form)
 	def form_invalid( self, form ):
 		"""Handle invalid form submission"""
 		messages.error(self.request, 'Please correct the errors below.')
 		return super().form_invalid(form)
+class UserRegisterView(CreateView):
+    form_class = UserCreationForm
+    template_name = 'userextend/register.html'
+    success_url = reverse_lazy('login')
