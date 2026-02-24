@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 
 
 class LoginForm(AuthenticationForm):
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['username'].widget.attrs['class'] = 'form-control'
@@ -11,12 +10,10 @@ class LoginForm(AuthenticationForm):
         self.fields['username'].widget.attrs['placeholder'] = 'Please enter your username'
         self.fields['password'].widget.attrs['placeholder'] = 'Please enter your password'
 
-
 class SignUpForm(UserCreationForm):
     class Meta:
         model = User
         fields =['first_name', 'last_name', 'username', 'email']
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['first_name'].widget.attrs['class'] = 'form-control'

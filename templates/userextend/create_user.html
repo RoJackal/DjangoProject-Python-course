@@ -1,25 +1,61 @@
 {% extends 'base.html' %}
-{% block title %} Create a new user {% endblock %}
+{% block title %} Create System User {% endblock %}
+
 {% block content %}
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-6 offset-md-3">
-                <br><br>
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="text-center">Create a new user</h3>
-                    </div>
-                    <form method="POST">
-                        {% csrf_token %}
-                        <div class="card-body">
-                             {{ form }}
-                        </div>
-                        <div class="card-footer text-center">
-                            <button type='submit' class="btn btn-success">Save</button>
-                        </div>
-                    </form>
+<div class="flex items-center justify-center py-12 px-4">
+    <div class="w-full max-w-lg">
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="mb-4 p-4 rounded-xl border {% if message.tags == 'success' %}bg-emerald-500/10 border-emerald-500/20 text-emerald-400{% else %}bg-red-500/10 border-red-500/20 text-red-400{% endif %} flex items-center gap-3 animate-pulse">
+                    <i data-lucide="{% if message.tags == 'success' %}check-circle{% else %}alert-circle{% endif %}" class="w-5 h-5"></i>
+                    <span class="text-sm font-medium">{{ message }}</span>
                 </div>
+            {% endfor %}
+        {% endif %}
+
+        <div class="bg-[#1a1d21] border border-white/10 rounded-2xl shadow-2xl overflow-hidden">
+            <div class="bg-white/[0.02] border-b border-white/10 p-8 text-center">
+                <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-accent/10 border border-accent/20 mb-4 text-accent">
+                    <i data-lucide="user-plus" class="w-8 h-8"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white tracking-tight">Create User</h3>
+                <p class="text-gray-500 text-[10px] mt-2 uppercase tracking-[0.2em]">HPRO Group Internal Registration</p>
             </div>
+
+            <form method="POST" class="form-custom-style">
+                {% csrf_token %}
+                <div class="p-8 space-y-6">
+                    <div class="space-y-4">
+                        {{ form }}
+                    </div>
+
+                    <button type="submit" class="w-full flex items-center justify-center gap-2 bg-accent hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-xl transition-all shadow-lg shadow-accent/20 active:scale-[0.98]">
+                        <i data-lucide="send" class="w-5 h-5"></i>
+                        Register & Notify User
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div class="mt-6 text-center">
+            <a href="{% url 'list_employees' %}" class="text-xs text-gray-500 hover:text-white transition-colors flex items-center justify-center gap-2">
+                <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to Dashboard
+            </a>
         </div>
     </div>
+</div>
+
+<style type="text/tailwindcss">
+@layer components {
+    .form-custom-style p { @apply mb-5 flex flex-col; }
+    .form-custom-style label { @apply block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2 ml-1; }
+    .form-custom-style input {
+        @apply w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-white transition-all
+               focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent focus:bg-white/[0.07];
+    }
+    .form-custom-style .helptext { @apply text-[10px] text-gray-600 mt-2 ml-1 block leading-tight; }
+    .form-custom-style .errorlist { @apply text-red-400 text-[11px] mb-2 list-none p-0 ml-1 font-mono font-bold; }
+}
+</style>
 {% endblock %}

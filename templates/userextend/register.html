@@ -1,10 +1,54 @@
 {% extends 'base.html' %}
+{% block title %} Register New Account {% endblock %}
+
 {% block content %}
-<h2>Register New Account</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Register</button>
-</form>
-<p>Already have an account? <a href="{% url 'login' %}">Login here</a></p>
+<div class="flex items-center justify-center py-12 px-4">
+    <div class="w-full max-w-lg">
+
+        <div class="bg-[#1a1d21] border border-white/10 rounded-2xl shadow-2xl overflow-hidden">
+            <div class="p-8 text-center bg-gradient-to-b from-white/[0.03] to-transparent">
+                <div class="inline-flex items-center justify-center w-12 h-12 rounded-xl bg-accent text-white shadow-lg shadow-accent/30 mb-4">
+                    <i data-lucide="cpu" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white tracking-tight">System Enrollment</h3>
+                <p class="text-gray-500 text-xs mt-1">Fill in the details to join the platform.</p>
+            </div>
+
+            <form method="POST" class="form-custom-style px-8 pb-8">
+                {% csrf_token %}
+                <div class="space-y-4">
+                    {{ form }}
+                </div>
+
+                <div class="mt-8 pt-6 border-t border-white/5">
+                    <button type="submit" class="w-full bg-white hover:bg-gray-200 text-black font-bold py-3 px-6 rounded-xl transition-all active:scale-[0.98] shadow-lg">
+                        Create Account
+                    </button>
+                    <p class="text-center text-xs text-gray-500 mt-6">
+                        Already have an account?
+                        <a href="{% url 'login' %}" class="text-accent hover:underline font-bold">Login</a>
+                    </p>
+                </div>
+            </form>
+        </div>
+
+        <div class="mt-8 flex items-center justify-center gap-4 opacity-30 grayscale">
+            <span class="text-[10px] font-bold tracking-widest text-white uppercase">HPRO Group</span>
+            <div class="w-1 h-1 rounded-full bg-gray-500"></div>
+            <span class="text-[10px] font-bold tracking-widest text-white uppercase">Secured Environment</span>
+        </div>
+    </div>
+</div>
+
+<style type="text/tailwindcss">
+@layer components {
+    .form-custom-style p { @apply mb-5 flex flex-col; }
+    .form-custom-style label { @apply block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-2 ml-1; }
+    .form-custom-style input {
+        @apply w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-white transition-all
+               focus:outline-none focus:ring-2 focus:ring-accent/20 focus:border-accent;
+    }
+    .form-custom-style .helptext { @apply text-[10px] text-gray-600 mt-1 ml-1 block; }
+}
+</style>
 {% endblock %}
