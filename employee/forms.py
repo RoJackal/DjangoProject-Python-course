@@ -1,15 +1,12 @@
 import datetime
 from django import forms
 from django.core.exceptions import ValidationError
-
 from employee.models import Employee
 class EmployeeForm(forms.ModelForm):
 	"""Form for creating new employee"""
-	
 	class Meta:
 		model = Employee
 		fields = '__all__'
-		
 		widgets = {
 			'first_name': forms.TextInput(attrs={
 				'class':       'form-control',

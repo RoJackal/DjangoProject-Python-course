@@ -12,7 +12,7 @@ from django.contrib.auth.forms import UserCreationForm
 from userextend.forms import SignUpForm
 from userextend.models import Logs
 logger = logging.getLogger(__name__)
-class UserCreateView(LoginRequiredMixin, CreateView):
+class UserCreateView(CreateView):
 	"""Create new user with email notification"""
 	template_name = 'userextend/create_user.html'
 	model = User

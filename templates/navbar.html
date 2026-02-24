@@ -1,111 +1,97 @@
-<nav class="navbar navbar-expand-lg sticky-top navbar-glass border-bottom border-white border-opacity-10" data-bs-theme="dark">
-    <div class="container-fluid">
-        <a class="navbar-brand fw-bold text-uppercase tracking-wider" href="#">
-            <span class="text-primary"><i class="bi bi-cpu-fill"></i></span> EMS<span class="text-primary">.</span>
+<nav class="sticky top-0 z-50 bg-[#0f1216]/85 backdrop-blur-md border-b border-white/10 text-gray-200">
+    <div class="container mx-auto px-4 flex items-center justify-between h-16">
+        <a class="flex items-center gap-2 font-bold uppercase tracking-[2px] text-gray-100" href="#">
+            <i data-lucide="cpu" class="text-accent w-6 h-6"></i>
+            <span>EMS<span class="text-accent">.</span></span>
         </a>
-        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active nav-hover-effect" aria-current="page" href="{% url 'home_page' %}">
-                        <i class="bi bi-house-door me-1"></i> Dashboard
+        <label for="menu-toggle" class="lg:hidden cursor-pointer p-2">
+            <i data-lucide="menu" class="w-6 h-6"></i>
+        </label>
+        <input type="checkbox" id="menu-toggle" class="hidden peer">
+        <div class="hidden peer-checked:block lg:flex lg:items-center lg:gap-8 absolute lg:relative top-16 lg:top-0 left-0 w-full lg:w-auto bg-[#0f1216] lg:bg-transparent border-b border-white/10 lg:border-none p-4 lg:p-0">
+            <ul class="flex flex-col lg:flex-row lg:items-center gap-4 lg:gap-6 mr-auto">
+                <li>
+                    <a href="{% url 'home_page' %}" class="relative flex items-center gap-2 py-2 text-sm font-medium hover:text-accent transition-colors group">
+                        <i data-lucide="layout-dashboard" class="w-4 h-4"></i> Dashboard
+                        <span class="absolute bottom-0 left-1/2 w-0 h-[2px] bg-accent transition-all duration-300 -translate-x-1/2 group-hover:w-4/5"></span>
                     </a>
                 </li>
                 {% if user.is_authenticated %}
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle nav-hover-effect" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-people me-1"></i> Employees
+                <li class="relative group">
+                    <button class="flex items-center gap-1 py-2 text-sm font-medium hover:text-accent transition-colors">
+                        <i data-lucide="users" class="w-4 h-4 mr-1"></i> Employees <i data-lucide="chevron-down" class="w-3 h-3"></i>
+                    </button>
+                    <div class="lg:absolute hidden group-hover:block bg-gray-900 border border-white/10 rounded-lg shadow-xl py-2 mt-0 w-48 z-50">
+                        {% if perms.employee.add_employee %}
+                        <a href="{% url 'create_employee' %}" class="flex items-center gap-2 px-4 py-2 text-sm hover:bg-white/5 transition-colors">
+                            <i data-lucide="plus-circle" class="w-4 h-4"></i> Add New
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-dark shadow-lg border-secondary border-opacity-50">
-                            {% if perms.employee.add_employee %}
-                                 <li><a class="dropdown-item" href="{% url 'create_employee' %}"><i class="bi bi-plus-circle me-2"></i>Add New</a></li>
-                            {% endif %}
-                            <li><a class="dropdown-item" href="{% url 'list_employees' %}"><i class="bi bi-list-ul me-2"></i>Directory</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle nav-hover-effect" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-shield-lock me-1"></i> Management
+                        {% endif %}
+                        <a href="{% url 'list_employees' %}" class="flex items-center gap-2 px-4 py-2 text-sm hover:bg-white/5 transition-colors">
+                            <i data-lucide="list" class="w-4 h-4"></i> Directory
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-dark shadow-lg border-secondary border-opacity-50">
-                            <li><a class="dropdown-item" href="{% url 'create_manager' %}"><i class="bi bi-person-plus me-2"></i>New Manager</a></li>
-                            <li><a class="dropdown-item" href="{% url 'list_managers' %}"><i class="bi bi-person-badge me-2"></i>Manager List</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle nav-hover-effect" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Quick View</a>
-                        <ul class="dropdown-menu dropdown-menu-dark shadow-lg border-secondary border-opacity-50 scrollable-menu">
+                    </div>
+                </li>
+                <li class="relative group">
+                    <button class="flex items-center gap-1 py-2 text-sm font-medium hover:text-accent transition-colors">
+                        <i data-lucide="shield-check" class="w-4 h-4 mr-1"></i> Management <i data-lucide="chevron-down" class="w-3 h-3"></i>
+                    </button>
+                    <div class="lg:absolute hidden group-hover:block bg-gray-900 border border-white/10 rounded-lg shadow-xl py-2 mt-0 w-48 z-50">
+                        <a href="{% url 'create_manager' %}" class="flex items-center gap-2 px-4 py-2 text-sm hover:bg-white/5 transition-colors">
+                            <i data-lucide="user-plus" class="w-4 h-4"></i> New Manager
+                        </a>
+                        <a href="{% url 'list_managers' %}" class="flex items-center gap-2 px-4 py-2 text-sm hover:bg-white/5 transition-colors">
+                            <i data-lucide="badge-check" class="w-4 h-4"></i> Manager List
+                        </a>
+                    </div>
+                </li>
+                <li class="relative group">
+                    <button class="flex items-center gap-1 py-2 text-sm font-medium hover:text-accent transition-colors">
+                        Quick View <i data-lucide="chevron-down" class="w-3 h-3 ml-1"></i>
+                    </button>
+                    <div class="lg:absolute hidden group-hover:block bg-gray-900 border border-white/10 rounded-lg shadow-xl py-2 mt-0 w-56 z-50">
+                        <div class="max-h-60 overflow-y-auto scrollbar-thin scrollbar-thumb-white/20">
                             {% for employee in employees %}
-                                <li><a class="dropdown-item small" href="{% url 'details_employee' employee.id %}">{{ employee.first_name }} {{ employee.last_name }}</a></li>
+                            <a href="{% url 'details_employee' employee.id %}" class="block px-4 py-2 text-xs hover:bg-white/5 truncate transition-colors">
+                                {{ employee.first_name }} {{ employee.last_name }}
+                            </a>
                             {% empty %}
-                                <li><span class="dropdown-item-text text-muted small">No entries</span></li>
+                            <span class="block px-4 py-2 text-xs text-gray-500 italic">No entries</span>
                             {% endfor %}
                             {% if no_of_max %}
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item fw-bold text-info" href="{% url 'list_employees' %}">Full Directory</a></li>
+                            <hr class="my-1 border-white/10">
+                            <a href="{% url 'list_employees' %}" class="block px-4 py-2 text-xs font-bold text-cyan-400 hover:bg-white/5 transition-colors">
+                                Full Directory
+                            </a>
                             {% endif %}
-                        </ul>
-                    </li>
+                        </div>
+                    </div>
+                </li>
                 {% endif %}
             </ul>
-            <div class="d-flex align-items-center gap-3">
+            <div class="flex flex-col lg:flex-row items-start lg:items-center gap-4 lg:gap-6 mt-4 lg:mt-0 pt-4 lg:pt-0 border-t border-white/10 lg:border-none">
                 {% if user.is_authenticated %}
-                    <div class="d-none d-lg-block text-end">
-                        <div class="text-light small lh-1" style="font-size: 0.75rem;">Welcome back,</div>
-                        <div class="text-primary fw-bold small">{{ user.username }}</div>
-                    </div>
-                    <form method="post" action="{% url 'logout' %}" class="m-0">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-sm btn-outline-danger px-3 rounded-pill">
-                            <i class="bi bi-box-arrow-right"></i> Logout
-                        </button>
-                    </form>
+                <div class="hidden lg:block text-right">
+                    <div class="text-[10px] text-gray-500 leading-none">Welcome back,</div>
+                    <div class="text-accent font-bold text-sm">{{ user.username }}</div>
+                </div>
+                <form method="post" action="{% url 'logout' %}" class="m-0 w-full lg:w-auto">
+                    {% csrf_token %}
+                    <button type="submit" class="flex items-center justify-center gap-2 w-full lg:w-auto px-5 py-1.5 border border-red-500/50 text-red-500 hover:bg-red-500 hover:text-white rounded-full text-xs font-semibold transition-all">
+                        <i data-lucide="log-out" class="w-3.5 h-3.5"></i> Logout
+                    </button>
+                </form>
                 {% else %}
-                    <a href="{% url 'login' %}" class="btn btn-sm text-light px-3">Login</a>
-                    <a href="{% url 'create-user' %}" class="btn btn-sm btn-primary px-3 rounded-pill shadow-sm">Sign Up</a>
+                <a href="{% url 'login' %}" class="text-sm font-medium hover:text-white transition-colors">Login</a>
+                <a href="{% url 'create-user' %}" class="px-5 py-1.5 bg-accent text-white rounded-full text-xs font-semibold shadow-lg shadow-accent/20 hover:scale-105 transition-transform">Sign Up</a>
                 {% endif %}
             </div>
         </div>
     </div>
 </nav>
 <style>
-    .navbar-glass {
-        background: rgba(15, 18, 22, 0.85) !important;
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-    }
-    .nav-hover-effect {
-        position: relative;
-        transition: color 0.3s ease;
-    }
-    .nav-hover-effect::after {
-        content: '';
-        position: absolute;
-        width: 0;
-        height: 2px;
-        bottom: 5px;
-        left: 50%;
-        background-color: var(--bs-primary);
-        transition: all 0.3s ease;
-        transform: translateX(-50%);
-    }
-    .nav-hover-effect:hover::after {
-        width: 80%;
-    }
-    .scrollable-menu {
-        max-height: 300px;
-        overflow-y: auto;
-    }
-    .scrollable-menu::-webkit-scrollbar {
-        width: 4px;
-    }
-    .scrollable-menu::-webkit-scrollbar-thumb {
-        background: rgba(255, 255, 255, 0.2);
-        border-radius: 10px;
-    }
-    .tracking-wider {
-        letter-spacing: 1px;
-    }
+    /* Scrollbar Customization */
+    .scrollbar-thin::-webkit-scrollbar { width: 4px; }
+    .scrollbar-thin::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 4px; }
+    .scrollbar-thin::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.2); }
 </style>

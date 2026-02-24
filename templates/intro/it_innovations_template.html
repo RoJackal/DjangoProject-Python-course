@@ -1,112 +1,93 @@
 {% extends 'base.html' %}
 {% block title %} IT INNOVATIONS {% endblock %}
 {% block content %}
-    <div class="container-fluid">
-
-        <h1>3 COLOANE</h1>
-        <div class="row">
-            <div class="col-md-4">
-                <table class="table table-success table-striped">
-                    <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Impact</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for innovo in innovations %}
+<div class="space-y-12">
+    <div>
+        <h2 class="text-xs font-bold text-gray-500 uppercase tracking-[0.2em] mb-6 flex items-center gap-2">
+            <i data-lucide="layout-grid" class="w-4 h-4 text-emerald-500"></i> 3 COLOANE
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {% for _ in "123" %}
+            <div class="overflow-hidden rounded-xl border border-white/10 bg-black/20 shadow-xl">
+                <table class="w-full text-left border-collapse text-sm">
+                    <thead class="bg-emerald-500/10 border-b border-emerald-500/20 text-emerald-400 font-bold uppercase text-[10px] tracking-wider">
                         <tr>
-                            <td>{{ innovo.name }}</td>
-                            <td>{{ innovo.impact }}</td>
+                            <th class="px-4 py-3">Name</th>
+                            <th class="px-4 py-3">Impact</th>
                         </tr>
-                    {% endfor %}
+                    </thead>
+                    <tbody class="divide-y divide-white/5">
+                        {% for innovo in innovations %}
+                        <tr class="hover:bg-white/[0.02] transition-colors">
+                            <td class="px-4 py-2.5 text-gray-300 font-medium">{{ innovo.name }}</td>
+                            <td class="px-4 py-2.5 text-gray-500 italic">{{ innovo.impact }}</td>
+                        </tr>
+                        {% endfor %}
                     </tbody>
-
                 </table>
             </div>
-            <div class="col-md-4">
-                <table class="table table-success table-striped">
-                    <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Impact</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for innovo in innovations %}
-                        <tr>
-                            <td>{{ innovo.name }}</td>
-                            <td>{{ innovo.impact }}</td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-
-                </table>
-            </div>
-            <div class="col-md-4">
-                <table class="table table-success table-striped">
-                    <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Impact</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for innovo in innovations %}
-                        <tr>
-                            <td>{{ innovo.name }}</td>
-                            <td>{{ innovo.impact }}</td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-
-                </table>
-            </div>
-        </div>
-
-
-        <h1>Coloana pe mijloc</h1>
-        <div class="row">
-            <div class="col-md-8 offset-md-2">
-                <table class="table table-success table-striped">
-                    <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Impact</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for innovo in innovations %}
-                        <tr>
-                            <td>{{ innovo.name }}</td>
-                            <td>{{ innovo.impact }}</td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-
-                </table>
-            </div>
-        </div>
-
-
-        <h1>Full page</h1>
-
-        <table class="table table-success table-striped">
-            <thead>
-            <tr>
-                <th>Name</th>
-                <th>Impact</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for innovo in innovations %}
-                <tr>
-                    <td>{{ innovo.name }}</td>
-                    <td>{{ innovo.impact }}</td>
-                </tr>
             {% endfor %}
-            </tbody>
-        </table>
-        <a class="btn btn-outline-primary" href='{% url 'top-programming-languages' %}'>Go to list of progr langs</a>
+        </div>
     </div>
+
+    <div>
+        <h2 class="text-xs font-bold text-gray-500 uppercase tracking-[0.2em] mb-6 flex items-center justify-center gap-2">
+            <i data-lucide="align-center" class="w-4 h-4 text-emerald-500"></i> Coloana pe mijloc
+        </h2>
+        <div class="flex justify-center">
+            <div class="w-full md:w-2/3 lg:w-3/5 overflow-hidden rounded-xl border border-white/10 bg-black/20 shadow-xl">
+                <table class="w-full text-left border-collapse text-sm">
+                    <thead class="bg-emerald-500/10 border-b border-emerald-500/20 text-emerald-400 font-bold uppercase text-[10px] tracking-wider">
+                        <tr>
+                            <th class="px-6 py-4">Name</th>
+                            <th class="px-6 py-4">Impact</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-white/5">
+                        {% for innovo in innovations %}
+                        <tr class="hover:bg-white/[0.02] transition-colors">
+                            <td class="px-6 py-3.5 text-gray-200 font-semibold">{{ innovo.name }}</td>
+                            <td class="px-6 py-3.5 text-gray-400">{{ innovo.impact }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="pb-8">
+        <h2 class="text-xs font-bold text-gray-500 uppercase tracking-[0.2em] mb-6 flex items-center gap-2">
+            <i data-lucide="maximize" class="w-4 h-4 text-emerald-500"></i> Full page
+        </h2>
+        <div class="overflow-hidden rounded-xl border border-white/10 bg-black/20 shadow-2xl">
+            <table class="w-full text-left border-collapse">
+                <thead class="bg-emerald-500/10 border-b border-emerald-500/20 text-emerald-400 font-bold uppercase text-[10px] tracking-[0.15em]">
+                    <tr>
+                        <th class="px-8 py-5">Name</th>
+                        <th class="px-8 py-5">Impact Level</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-white/5">
+                    {% for innovo in innovations %}
+                    <tr class="hover:bg-emerald-500/[0.03] transition-colors">
+                        <td class="px-8 py-4 text-gray-100 font-bold">{{ innovo.name }}</td>
+                        <td class="px-8 py-4">
+                            <span class="inline-flex px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-medium border border-emerald-500/20">
+                                {{ innovo.impact }}
+                            </span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="pt-4 flex justify-end">
+        <a class="flex items-center gap-2 px-6 py-3 border border-emerald-500/50 text-emerald-400 hover:bg-emerald-500 hover:text-white rounded-xl transition-all font-bold text-sm shadow-lg shadow-emerald-500/10" href="{% url 'top-programming-languages' %}">
+            Go to list of programming languages <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </a>
+    </div>
+</div>
 {% endblock %}

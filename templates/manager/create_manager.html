@@ -1,27 +1,61 @@
 {% extends 'base.html' %}
 {% block title %} Create a new manager {% endblock %}
 {% block content %}
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-6 offset-md-3">
-                <br><br>
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="text-center">Create a new manager</h3>
-                    </div>
-                    <form method="POST">
-                        {% csrf_token %}
-                        <div class="card-body">
-                            {{ form }}
-                        </div>
-                        <div class="card-footer text-center">
-                            <button type="submit" class="btn btn-outline-success">SAVE</button>
-                        </div>
-                    </form>
-
-                </div>
-
+<div class="flex items-center justify-center py-12">
+    <div class="w-full max-w-2xl">
+        <div class="flex items-center gap-4 mb-8">
+            <div class="bg-emerald-500/10 p-4 rounded-2xl">
+                <i data-lucide="shield-check" class="text-emerald-500 w-8 h-8"></i>
+            </div>
+            <div>
+                <h2 class="text-2xl font-bold text-white tracking-tight">Create New Manager</h2>
+                <p class="text-gray-500 text-sm italic">Assign administrative privileges and department oversight.</p>
             </div>
         </div>
+
+        <div class="bg-[#1a1d21] border border-white/10 rounded-2xl shadow-2xl overflow-hidden">
+            <form method="POST" class="form-custom-style">
+                {% csrf_token %}
+
+                <div class="p-8 space-y-6">
+                    <div class="space-y-4">
+                        {{ form }}
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-8 border-t border-white/5">
+                        <a href="{% url 'list_managers' %}" class="text-gray-500 hover:text-white text-sm font-medium transition-colors flex items-center gap-2">
+                            <i data-lucide="arrow-left" class="w-4 h-4"></i> Back to List
+                        </a>
+
+                        <button type="submit" class="w-full sm:w-auto flex items-center justify-center gap-2 border border-emerald-500/50 text-emerald-400 hover:bg-emerald-500 hover:text-white px-10 py-3 rounded-full font-bold text-sm transition-all shadow-lg shadow-emerald-500/10 active:scale-95">
+                            <i data-lucide="save" class="w-4 h-4"></i> SAVE MANAGER
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="mt-6 p-4 bg-emerald-500/5 border border-emerald-500/10 rounded-xl">
+            <p class="text-[11px] text-emerald-500/80 leading-relaxed text-center">
+                <i data-lucide="shield-alert" class="inline w-3 h-3 mr-1"></i>
+                <strong>Security Protocol:</strong> New manager accounts will inherit department-level permissions. Ensure the email address is verified according to HPRO GROUP security standards.
+            </p>
+        </div>
     </div>
+</div>
+
+<style type="text/tailwindcss">
+@layer components {
+    .form-custom-style p { @apply mb-6; }
+    .form-custom-style label { @apply block text-[10px] font-bold text-gray-500 uppercase tracking-[0.15em] mb-2 ml-1; }
+    .form-custom-style input,
+    .form-custom-style select,
+    .form-custom-style textarea {
+        @apply w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-white transition-all
+               focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-500 focus:bg-white/[0.07];
+    }
+    /* Django Error Styling */
+    .form-custom-style .errorlist { @apply text-red-400 text-xs mb-2 list-none p-0 ml-1 font-mono; }
+}
+</style>
 {% endblock %}
