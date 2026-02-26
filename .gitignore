@@ -61,3 +61,5 @@ htmlcov/
 # Database backups
 *.sql
 *.dump
+cert.pem
+key.pem
