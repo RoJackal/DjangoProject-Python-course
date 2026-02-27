@@ -1,5 +1,3 @@
-from django.contrib import admin
-
+import django.contrib
 from manager.models import Manager
-
-admin.site.register(Manager)
+django.contrib.admin.site.register(Manager)

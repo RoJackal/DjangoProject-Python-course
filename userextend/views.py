@@ -1,6 +1,5 @@
 import datetime
 import logging
-
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
@@ -43,7 +42,6 @@ class UserCreateView(CreateView):
 						f"Email: {new_user.email}\n\n"
 						f"Please login to continue."
 					)
-					
 					send_mail(
 							subject=title,
 							message=content,

@@ -39,7 +39,7 @@ class EmployeeListView(LoginRequiredMixin, ListView):
 	template_name = 'employee/list_of_employees.html'
 	model = Employee
 	context_object_name = 'all_employees'
-	paginate_by = 20
+	paginate_by = 25
 	def get_queryset( self ):
 		"""Optimize query with select_related and only load needed fields"""
 		queryset = Employee.objects.filter(active=True).select_related('manager').order_by('-hire_date')
